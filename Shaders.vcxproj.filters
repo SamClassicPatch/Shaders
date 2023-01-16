@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ReftectionAndSpecularDS.cpp">
+    <ClCompile Include="ReflectionAndSpecularDS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Specular.cpp">
@@ -72,7 +72,7 @@
     <ClCompile Include="ReflectionDS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ReftectionAndSpecular.cpp">
+    <ClCompile Include="ReflectionAndSpecular.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

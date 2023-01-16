@@ -33,8 +33,8 @@
     <ClCompile Include="MultiLayerShader.cpp" />
     <ClCompile Include="Reflection.cpp" />
     <ClCompile Include="ReflectionDS.cpp" />
-    <ClCompile Include="ReftectionAndSpecular.cpp" />
-    <ClCompile Include="ReftectionAndSpecularDS.cpp" />
+    <ClCompile Include="ReflectionAndSpecular.cpp" />
+    <ClCompile Include="ReflectionAndSpecularDS.cpp" />
     <ClCompile Include="Specular.cpp" />
     <ClCompile Include="SpecularDS.cpp" />
     <ClCompile Include="StdH.cpp">
