@@ -91,7 +91,7 @@ SHADER_MAIN(LavaDisplace)
   for (INDEX ivx = 0; ivx < ctVertices; ivx++) {
     paNewVertices[ivx] = paVertices[ivx];
 
-    TransformVertex(paNewVertices[ivx],mInvAbsToViewer);
+    TransformVertex(paNewVertices[ivx], mInvAbsToViewer);
     paNewVertices[ivx].x *= 1.0f + fAmplitude * sin((paNewVertices[ivx].y + (_pTimer->GetLerpedCurrentTick() * fFrequency)) * fRipples);
     paNewVertices[ivx].z *= 1.0f + fAmplitude * sin((paNewVertices[ivx].y + (_pTimer->GetLerpedCurrentTick() * fFrequency)) * fRipples);
 
