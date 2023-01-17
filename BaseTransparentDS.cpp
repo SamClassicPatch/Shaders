@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -29,7 +29,7 @@ SHADER_MAIN(Base_TransparentDS)
 {
 #if 0
   shaSetTexture(BASE_TEXTURE);
-  shaSetTextureWrapping( GFX_REPEAT, GFX_REPEAT);
+  shaSetTextureWrapping(GFX_REPEAT, GFX_REPEAT);
   shaSetUVMap(BASE_UVMAP);
   shaSetColor(BASE_COLOR);
   shaDepthFunc(GFX_LESS_EQUAL);
@@ -43,19 +43,20 @@ SHADER_MAIN(Base_TransparentDS)
 
   shaModifyColorForFog();
 
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(2);
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(2);
   shaRender();
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(1);
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(1);
 
-  COLOR colModelColor = MulColors(shaGetModelColor(),shaGetCurrentColor());
-  BOOL bOpaque = (colModelColor&0xFF)==0xFF;
-  if(bOpaque) {
+  COLOR colModelColor = MulColors(shaGetModelColor(), shaGetCurrentColor());
+  BOOL bOpaque = (colModelColor & 0xFF) == 0xFF;
+
+  if (bOpaque) {
     shaDoFogPass();
   }
 #endif
-}
+};
 
-SHADER_DESC(Base_TransparentDS,ShaderDesc &shDesc)
+SHADER_DESC(Base_TransparentDS, ShaderDesc &shDesc)
 {
   shDesc.sd_astrTextureNames.New(TEXTURE_COUNT);
   shDesc.sd_astrTexCoordNames.New(UVMAPS_COUNT);
@@ -65,6 +66,6 @@ SHADER_DESC(Base_TransparentDS,ShaderDesc &shDesc)
   shDesc.sd_astrTextureNames[0] = "Base texture";
   shDesc.sd_astrTexCoordNames[0] = "Base uvmap";
   shDesc.sd_astrColorNames[0] = "Base color";
-  // shDesc.sd_astrFloatNames[0] = "Double sided";
+  //shDesc.sd_astrFloatNames[0] = "Double sided";
   shDesc.sd_strShaderInfo = "Basic shader";
-}
+};

@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -29,23 +29,23 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 SHADER_MAIN(Base)
 {
   shaSetTexture(BASE_TEXTURE);
-  shaSetTextureWrapping( GFX_REPEAT, GFX_REPEAT);
+  shaSetTextureWrapping(GFX_REPEAT, GFX_REPEAT);
   shaSetUVMap(BASE_UVMAP);
   shaSetColor(BASE_COLOR);
   shaEnableDepthTest();
   shaDepthFunc(GFX_LESS_EQUAL);
 
-  COLOR colModelColor = MulColors(shaGetModelColor(),shaGetCurrentColor());
-  BOOL bDoubleSided = shaGetFlags()&BASE_DOUBLE_SIDED;
-  BOOL bOpaque = (colModelColor&0xFF)==0xFF;
+  COLOR colModelColor = MulColors(shaGetModelColor(), shaGetCurrentColor());
+  BOOL bDoubleSided = shaGetFlags() & BASE_DOUBLE_SIDED;
+  BOOL bOpaque = (colModelColor & 0xFF) == 0xFF;
 
   shaCalculateLight();
 
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(2);
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(2);
 
   // if fully opaque
-  if(bOpaque) {
-    if(bDoubleSided) {
+  if (bOpaque) {
+    if (bDoubleSided) {
       shaCullFace(GFX_NONE);
     } else {
       shaCullFace(GFX_BACK);
@@ -54,6 +54,7 @@ SHADER_MAIN(Base)
     shaDisableAlphaTest();
     shaDisableBlend();
     shaEnableDepthWrite();
+
   // if translucent
   } else {
     shaBlendFunc(GFX_SRC_ALPHA, GFX_INV_SRC_ALPHA);
@@ -62,23 +63,25 @@ SHADER_MAIN(Base)
 
     shaModifyColorForFog();
 
-    if(bDoubleSided) {
+    if (bDoubleSided) {
       shaCullFace(GFX_FRONT);
       shaRender();
     }
+
     shaCullFace(GFX_BACK);
   }
 
   shaRender();
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(1);
+
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(1);
 
   // if opaque and not full bright
-  if(bOpaque) {
+  if (bOpaque) {
     shaDoFogPass();
   }
-}
+};
 
-SHADER_DESC(Base,ShaderDesc &shDesc)
+SHADER_DESC(Base, ShaderDesc &shDesc)
 {
   shDesc.sd_astrTextureNames.New(TEXTURE_COUNT);
   shDesc.sd_astrTexCoordNames.New(UVMAPS_COUNT);
@@ -92,4 +95,4 @@ SHADER_DESC(Base,ShaderDesc &shDesc)
   shDesc.sd_astrFlagNames[0] = "Double sided";
   shDesc.sd_astrFlagNames[1] = "Full bright";
   shDesc.sd_strShaderInfo = "Basic shader";
-}
+};

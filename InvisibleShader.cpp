@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -15,12 +15,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "StdH.h"
 
-#undef TEXTURE_COUNT
-#undef UVMAPS_COUNT
-#undef COLOR_COUNT
-#undef FLOAT_COUNT
-#undef FLAGS_COUNT
-
 #define TEXTURE_COUNT 0
 #define UVMAPS_COUNT  0
 #define COLOR_COUNT   0
@@ -28,12 +22,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 SHADER_MAIN(Invisible)
 {
-}
+};
 
-SHADER_DESC(Invisible,ShaderDesc &shDesc)
+SHADER_DESC(Invisible, ShaderDesc &shDesc)
 {
   shDesc.sd_astrTextureNames.New(TEXTURE_COUNT);
   shDesc.sd_astrTexCoordNames.New(UVMAPS_COUNT);
   shDesc.sd_astrColorNames.New(COLOR_COUNT);
   shDesc.sd_astrFloatNames.New(FLOAT_COUNT);
-}
+};

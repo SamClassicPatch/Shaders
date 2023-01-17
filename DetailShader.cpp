@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -15,12 +15,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "StdH.h"
 
-#undef TEXTURE_COUNT
-#undef UVMAPS_COUNT
-#undef COLOR_COUNT
-#undef FLOAT_COUNT
-#undef FLAGS_COUNT
-
 #define TEXTURE_COUNT 2
 #define UVMAPS_COUNT  1
 #define COLOR_COUNT   2
@@ -36,24 +30,20 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define DETAIL_COLOR   1
 #define DETAIL_TILING  0
 
-#define BASE_DOUBLE_SIDED (1UL<<0) // Double sided
-#define BASE_FULL_BRIGHT  (1UL<<1) // Full bright
-
-
 SHADER_MAIN(Detail)
 {
   shaSetTexture(BASE_TEXTURE);
-  shaSetTextureWrapping( GFX_REPEAT, GFX_REPEAT);
+  shaSetTextureWrapping(GFX_REPEAT, GFX_REPEAT);
   shaSetUVMap(BASE_UVMAP);
   shaSetColor(BASE_COLOR);
   shaEnableDepthTest();
   shaDepthFunc(GFX_LESS_EQUAL);
 
   COLOR &colModelColor = shaGetModelColor();
-  BOOL bDoubleSided = shaGetFlags()&BASE_DOUBLE_SIDED;
-  BOOL bOpaque = (colModelColor&0xFF)==0xFF;
+  BOOL bDoubleSided = shaGetFlags() & BASE_DOUBLE_SIDED;
+  BOOL bOpaque = (colModelColor & 0xFF) == 0xFF;
 
-  if(bDoubleSided) {
+  if (bDoubleSided) {
     shaCullFace(GFX_NONE);
   } else {
     shaCullFace(GFX_BACK);
@@ -62,30 +52,32 @@ SHADER_MAIN(Detail)
   shaCalculateLight();
 
   // if fully opaque
-  if(bOpaque) {
-    // shaEnableAlphaTest(TRUE);
+  if (bOpaque) {
+    //shaEnableAlphaTest(TRUE);
     shaDisableBlend();
     shaEnableDepthWrite();
+
   // if translucent
   } else {
-    // shaEnableAlphaTest(FALSE);
+    //shaEnableAlphaTest(FALSE);
     shaEnableBlend();
     shaBlendFunc(GFX_SRC_ALPHA, GFX_INV_SRC_ALPHA);
     shaDisableDepthWrite();
     shaModifyColorForFog();
   }
 
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(2);
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(2);
 
   shaRender();
 
-  if(bOpaque) {
+  if (bOpaque) {
     shaDoFogPass();
   }
 
   // do detail pass
   FLOAT fMul = shaGetFloat(DETAIL_TILING);
-  shaBlendFunc( GFX_DST_COLOR, GFX_SRC_COLOR);
+
+  shaBlendFunc(GFX_DST_COLOR, GFX_SRC_COLOR);
   shaSetTexture(DETAIL_TEXTURE);
   shaSetUVMap(DETAIL_UVMAP);
   shaSetColor(DETAIL_COLOR);
@@ -96,51 +88,55 @@ SHADER_MAIN(Detail)
   GFXTexCoord *ptxcOld = shaGetUVMap(0);
   GFXTexCoord *ptxcNew = shaGetNewTexCoordArray();
   INDEX ctTexCoords = shaGetVertexCount();
-  if(ctTexCoords>0) {
-    for(INDEX itxc=0;itxc<ctTexCoords;itxc++)
-    {
+
+  if (ctTexCoords > 0) {
+    for (INDEX itxc = 0; itxc < ctTexCoords; itxc++) {
       ptxcNew[itxc].u = ptxcOld[itxc].u * fMul;
       ptxcNew[itxc].v = ptxcOld[itxc].v * fMul;
     }
+
     shaSetTexCoords(ptxcNew);
   }
+
   shaRender();
   shaDisableBlend();
 
-  /*
-  FLOAT fMul = shaGetFloat(DETAIL_TILING);
+  /*FLOAT fMul = shaGetFloat(DETAIL_TILING);
 
   shaSetTexture(BASE_TEXTURE);
   shaSetUVMap(BASE_UVMAP);
   shaSetColor(BASE_COLOR);
   shaCalculateLight();
+
   shaRender();
+
   shaEnableBlend(TRUE);
   shaEnableAlphaTest(FALSE);
-  shaBlendFunc( GFX_DST_COLOR, GFX_SRC_COLOR);
+  shaBlendFunc(GFX_DST_COLOR, GFX_SRC_COLOR);
   shaSetTexture(DETAIL_TEXTURE);
   shaSetUVMap(DETAIL_UVMAP);
   shaSetColor(DETAIL_COLOR);
 
-  INDEX ctTexCoords=0;
-  GFXTexCoord *ptxcOld = shaGetUVMap(0,ctTexCoords);
+  INDEX ctTexCoords = 0;
+  GFXTexCoord *ptxcOld = shaGetUVMap(0, ctTexCoords);
   GFXTexCoord *ptxcNew = shaGetEmptyUVMap(ctTexCoords);
-  if(ctTexCoords>0)
-  {
-    for(INDEX itxc=0;itxc<ctTexCoords;itxc++)
-    {
+
+  if (ctTexCoords > 0) {
+    for (INDEX itxc = 0; itxc < ctTexCoords; itxc++) {
       ptxcNew[itxc].u = ptxcOld[itxc].u * fMul;
       ptxcNew[itxc].v = ptxcOld[itxc].v * fMul;
     }
+
     shaSetUVMap(ptxcNew,ctTexCoords);
   }
-  shaRender();
-  shaEnableBlend(FALSE);
-*/
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(1);
-}
 
-SHADER_DESC(Detail,ShaderDesc &shDesc)
+  shaRender();
+  shaEnableBlend(FALSE);*/
+
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(1);
+};
+
+SHADER_DESC(Detail, ShaderDesc &shDesc)
 {
   shDesc.sd_astrTextureNames.New(TEXTURE_COUNT);
   shDesc.sd_astrTexCoordNames.New(UVMAPS_COUNT);
@@ -157,4 +153,4 @@ SHADER_DESC(Detail,ShaderDesc &shDesc)
   shDesc.sd_astrFlagNames[0] = "Double sided";
   shDesc.sd_astrFlagNames[1] = "Full bright";
   shDesc.sd_strShaderInfo = "Detail shader";
-}
+};

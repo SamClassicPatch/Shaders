@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -16,12 +16,15 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <Engine/Engine.h>
 #include <Engine/Graphics/Shader.h>
 
-/* rcg10042001 protect against Visual C-isms. */
+// rcg10042001 protect against Visual C-isms
 #ifdef _MSC_VER
-#define DECL_DLL _declspec(dllexport)
+  #define DECL_DLL _declspec(dllexport)
 #endif
 
 // [Cecil] SKA models aren't usable prior to 1.07
 #if SE1_VER < SE1_107
   #error Shaders cannot be built for Serious Engine versions before 1.07!
 #endif
+
+// [Cecil] Common includes
+#include "Common.h"

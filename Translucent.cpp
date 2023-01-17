@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -29,7 +29,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 SHADER_MAIN(Translucent)
 {
   shaSetTexture(BASE_TEXTURE);
-  shaSetTextureWrapping( GFX_REPEAT, GFX_REPEAT);
+  shaSetTextureWrapping(GFX_REPEAT, GFX_REPEAT);
   shaSetUVMap(BASE_UVMAP);
   shaSetColor(BASE_COLOR);
   shaDepthFunc(GFX_LESS_EQUAL);
@@ -42,20 +42,23 @@ SHADER_MAIN(Translucent)
   shaDisableDepthWrite();
 
   shaModifyColorForFog();
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(2);
 
-  BOOL bDoubleSided = shaGetFlags()&BASE_DOUBLE_SIDED;
-  if(bDoubleSided) {
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(2);
+
+  BOOL bDoubleSided = shaGetFlags() & BASE_DOUBLE_SIDED;
+
+  if (bDoubleSided) {
     shaCullFace(GFX_FRONT);
     shaRender();
   }
 
   shaCullFace(GFX_BACK);
   shaRender();
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(1);
-}
 
-SHADER_DESC(Translucent,ShaderDesc &shDesc)
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(1);
+};
+
+SHADER_DESC(Translucent, ShaderDesc &shDesc)
 {
   shDesc.sd_astrTextureNames.New(TEXTURE_COUNT);
   shDesc.sd_astrTexCoordNames.New(UVMAPS_COUNT);
@@ -69,4 +72,4 @@ SHADER_DESC(Translucent,ShaderDesc &shDesc)
   shDesc.sd_astrFlagNames[0] = "Double sided";
   shDesc.sd_astrFlagNames[1] = "Full bright";
   shDesc.sd_strShaderInfo = "Translucent shader";
-}
+};

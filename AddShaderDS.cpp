@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -29,7 +29,7 @@ SHADER_MAIN(AddDS)
 {
 #if 0
   shaSetTexture(BASE_TEXTURE);
-  shaSetTextureWrapping( GFX_REPEAT, GFX_REPEAT);
+  shaSetTextureWrapping(GFX_REPEAT, GFX_REPEAT);
   shaSetUVMap(BASE_UVMAP);
   shaSetColor(BASE_COLOR);
   shaEnableDepthTest();
@@ -37,37 +37,39 @@ SHADER_MAIN(AddDS)
   shaCullFace(GFX_NONE);
   shaCalculateLight();
 
-  shaBlendFunc( GFX_SRC_ALPHA, GFX_ONE);
+  shaBlendFunc(GFX_SRC_ALPHA, GFX_ONE);
   shaEnableBlend();
   shaDisableAlphaTest();
   shaDisableDepthWrite();
-/*
-  COLOR colModelColor = MulColors(shaGetModelColor(),shaGetConstantColor());
-  BOOL bOpaque = (colModelColor&0xFF)==0xFF;
+
+  /*COLOR colModelColor = MulColors(shaGetModelColor(), shaGetConstantColor());
+  BOOL bOpaque = (colModelColor & 0xFF) == 0xFF;
+
   // if fully opaque
-  if(bOpaque) {
+  if (bOpaque) {
     shaEnableAlphaTest(FALSE);
     shaEnableBlend(FALSE);
     shaEnableDepthWrite(TRUE);
+
   // if translucent
   } else {
     shaEnableBlend(TRUE);
     shaBlendFunc(GFX_SRC_ALPHA, GFX_INV_SRC_ALPHA);
     shaEnableDepthWrite(FALSE);
     shaModifyColorForFog();
-  }
-*/
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(2);
+  }*/
+
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(2);
   shaRender();
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(1);
-/*
-  if(bOpaque) {
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(1);
+
+  /*if (bOpaque) {
     shaDoFogPass();
   }*/
 #endif
-}
+};
 
-SHADER_DESC(AddDS,ShaderDesc &shDesc)
+SHADER_DESC(AddDS, ShaderDesc &shDesc)
 {
   shDesc.sd_astrTextureNames.New(TEXTURE_COUNT);
   shDesc.sd_astrTexCoordNames.New(UVMAPS_COUNT);
@@ -78,4 +80,4 @@ SHADER_DESC(AddDS,ShaderDesc &shDesc)
   shDesc.sd_astrTexCoordNames[0] = "AddDS uvmap";
   shDesc.sd_astrColorNames[0] = "AddDS color";
   shDesc.sd_strShaderInfo = "AddDS shader";
-}
+};

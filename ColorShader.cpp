@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -32,10 +32,10 @@ SHADER_MAIN(Color)
   shaEnableDepthTest();
   shaDepthFunc(GFX_LESS_EQUAL);
 
-  BOOL bDoubleSided = shaGetFlags()&BASE_DOUBLE_SIDED;
-  BOOL bFullBright  = shaGetFlags()&BASE_FULL_BRIGHT;
+  BOOL bDoubleSided = shaGetFlags() & BASE_DOUBLE_SIDED;
+  BOOL bFullBright  = shaGetFlags() & BASE_FULL_BRIGHT;
 
-  if(bDoubleSided) {
+  if (bDoubleSided) {
     shaCullFace(GFX_NONE);
   } else {
     shaCullFace(GFX_BACK);
@@ -43,9 +43,9 @@ SHADER_MAIN(Color)
 
   shaCalculateLight();
   shaRender();
-}
+};
 
-SHADER_DESC(Color,ShaderDesc &shDesc)
+SHADER_DESC(Color, ShaderDesc &shDesc)
 {
   shDesc.sd_astrTextureNames.New(ctTextures);
   shDesc.sd_astrTexCoordNames.New(ctUvmaps);
@@ -57,4 +57,4 @@ SHADER_DESC(Color,ShaderDesc &shDesc)
   shDesc.sd_astrFlagNames[0] = "Double sided";
   shDesc.sd_astrFlagNames[1] = "Full bright";
   shDesc.sd_strShaderInfo = "Color shader";
-}
+};

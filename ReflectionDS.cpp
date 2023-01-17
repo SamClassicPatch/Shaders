@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -14,8 +14,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA. */
 
 #include "StdH.h"
-#include <Engine/Ska/Render.h>
-#include <Shaders/Common.h>
 
 #define TEXTURE_COUNT 2
 #define UVMAPS_COUNT  1
@@ -33,7 +31,7 @@ SHADER_MAIN(ReflectionDS)
 {
 #if 0
   shaSetTexture(BASE_TEXTURE);
-  shaSetTextureWrapping( GFX_REPEAT, GFX_REPEAT);
+  shaSetTextureWrapping(GFX_REPEAT, GFX_REPEAT);
   shaSetUVMap(BASE_UVMAP);
   shaSetColor(BASE_COLOR);
   shaEnableDepthTest();
@@ -41,13 +39,15 @@ SHADER_MAIN(ReflectionDS)
   shaCullFace(GFX_NONE);
   shaCalculateLight();
 
-  COLOR colModelColor = MulColors(shaGetModelColor(),shaGetCurrentColor());
-  BOOL bOpaque = (colModelColor&0xFF)==0xFF;
+  COLOR colModelColor = MulColors(shaGetModelColor(), shaGetCurrentColor());
+  BOOL bOpaque = (colModelColor & 0xFF) == 0xFF;
+
   // if fully opaque
-  if(bOpaque) {
+  if (bOpaque) {
     shaEnableAlphaTest(FALSE);
     shaEnableBlend(FALSE);
     shaEnableDepthWrite(TRUE);
+
   // if translucent
   } else {
     shaEnableBlend(TRUE);
@@ -56,18 +56,19 @@ SHADER_MAIN(ReflectionDS)
     shaModifyColorForFog();
   }
 
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(2);
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(2);
   shaRender();
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(1);
-  DoReflectionLayer(REFLECTION_TEXTURE,REFLECTION_COLOR,FALSE);
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(1);
 
-  if(bOpaque) {
+  DoReflectionLayer(REFLECTION_TEXTURE, REFLECTION_COLOR, FALSE);
+
+  if (bOpaque) {
     shaDoFogPass();
   }
 #endif
-}
+};
 
-SHADER_DESC(ReflectionDS,ShaderDesc &shDesc)
+SHADER_DESC(ReflectionDS, ShaderDesc &shDesc)
 {
   shDesc.sd_astrTextureNames.New(TEXTURE_COUNT);
   shDesc.sd_astrTexCoordNames.New(UVMAPS_COUNT);
@@ -80,4 +81,4 @@ SHADER_DESC(ReflectionDS,ShaderDesc &shDesc)
   shDesc.sd_astrColorNames[0] = "Base color";
   shDesc.sd_strShaderInfo = "Basic shader";
   shDesc.sd_astrColorNames[1] = "Reflection color";
-}
+};

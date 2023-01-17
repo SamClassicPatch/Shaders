@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd. 
+/* Copyright (c) 2002-2012 Croteam Ltd.
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -29,43 +29,48 @@ SHADER_MAIN(BaseDS)
 {
 #if 0
   shaSetTexture(BASE_TEXTURE);
-  shaSetTextureWrapping( GFX_REPEAT, GFX_REPEAT);
+  shaSetTextureWrapping(GFX_REPEAT, GFX_REPEAT);
   shaSetUVMap(BASE_UVMAP);
   shaSetColor(BASE_COLOR);
   shaEnableDepthTest();
   shaDepthFunc(GFX_LESS_EQUAL);
   shaCullFace(GFX_NONE);
   shaCalculateLight();
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(2);
-  
-  COLOR colModelColor = MulColors(shaGetModelColor(),shaGetCurrentColor());
-  BOOL bOpaque = (colModelColor&0xFF)==0xFF;
+
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(2);
+
+  COLOR colModelColor = MulColors(shaGetModelColor(), shaGetCurrentColor());
+  BOOL bOpaque = (colModelColor & 0xFF) == 0xFF;
+
   // if fully opaque
-  if(bOpaque) {
+  if (bOpaque) {
     shaDisableAlphaTest();
     shaDisableBlend();
     shaEnableDepthWrite();
+
   // if translucent
   } else {
     shaEnableBlend();
     shaBlendFunc(GFX_SRC_ALPHA, GFX_INV_SRC_ALPHA);
     shaDisableDepthWrite();
     shaModifyColorForFog();
+
     shaCullFace(GFX_FRONT);
     shaRender();
     shaCullFace(GFX_BACK);
   }
 
   shaRender();
-  if(shaOverBrightningEnabled()) shaSetTextureModulation(1);
 
-  if(bOpaque) {
+  if (shaOverBrightningEnabled()) shaSetTextureModulation(1);
+
+  if (bOpaque) {
     shaDoFogPass();
   }
 #endif
-}
+};
 
-SHADER_DESC(BaseDS,ShaderDesc &shDesc)
+SHADER_DESC(BaseDS, ShaderDesc &shDesc)
 {
   shDesc.sd_astrTextureNames.New(TEXTURE_COUNT);
   shDesc.sd_astrTexCoordNames.New(UVMAPS_COUNT);
@@ -76,4 +81,4 @@ SHADER_DESC(BaseDS,ShaderDesc &shDesc)
   shDesc.sd_astrTexCoordNames[0] = "Base uvmap";
   shDesc.sd_astrColorNames[0] = "Base color";
   shDesc.sd_strShaderInfo = "Double sided basic shader";
-}
+};
