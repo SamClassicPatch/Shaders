@@ -20,6 +20,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
   #pragma once
 #endif
 
+// [Cecil] Defined here instead of individual source files
+#define BASE_TEXTURE 0
+#define BASE_UVMAP   0
+#define BASE_COLOR   0
+#define BASE_FLOAT   0
+
 void DoSpecularLayer(INDEX iSpecularTexture, INDEX iSpecularColor);
 void DoReflectionLayer(INDEX iReflectionTexture, INDEX iReflectionColor, BOOL bFullBright);
 

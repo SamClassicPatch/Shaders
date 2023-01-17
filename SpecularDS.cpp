@@ -20,10 +20,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define COLOR_COUNT   2
 #define FLOAT_COUNT   0
 
-#define BASE_TEXTURE 0
-#define BASE_UVMAP   0
-#define BASE_COLOR   0
-#define BASE_FLOAT   0
 #define SPECULAR_TEXTURE 1
 #define SPECULAR_COLOR   1
 

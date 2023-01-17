@@ -21,10 +21,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define FLOAT_COUNT   1
 #define FLAGS_COUNT   2
 
-#define BASE_TEXTURE 0
-#define BASE_UVMAP   0
-#define BASE_COLOR   0
-
 #define DETAIL_TEXTURE 1
 #define DETAIL_UVMAP   1
 #define DETAIL_COLOR   1

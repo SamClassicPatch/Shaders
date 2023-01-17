@@ -20,11 +20,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define COLOR_COUNT   1
 #define FLOAT_COUNT   0
 
-#define BASE_TEXTURE 0
-#define BASE_UVMAP   0
-#define BASE_COLOR   0
-#define BASE_FLOAT   0
-
 SHADER_MAIN(BaseDS)
 {
 #if 0
