@@ -13,6 +13,9 @@
       <UniqueIdentifier>{57811e60-16b9-4551-a591-9c46716ab357}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
+    <Filter Include="Source Files\Cecil">
+      <UniqueIdentifier>{ecf66c7a-1717-4be4-8f80-d42ffb4a47eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ReflectionAndSpecularDS.cpp">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="ReflectionAndSpecular.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cecil\Main.cpp">
+      <Filter>Source Files\Cecil</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

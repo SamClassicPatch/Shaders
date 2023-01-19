@@ -25,6 +25,7 @@
     <ClCompile Include="BaseShaderDS.cpp" />
     <ClCompile Include="BaseTransparent.cpp" />
     <ClCompile Include="BaseTransparentDS.cpp" />
+    <ClCompile Include="Cecil\Main.cpp" />
     <ClCompile Include="ColorShader.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="DetailShader.cpp" />

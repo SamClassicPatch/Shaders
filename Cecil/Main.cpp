@@ -1,4 +1,4 @@
-/* Copyright (c) 2002-2012 Croteam Ltd.
+/* Copyright (c) 2022-2023 Dreamy Cecil
 This program is free software; you can redistribute it and/or modify
 it under the terms of version 2 of the GNU General Public License as published by
 the Free Software Foundation
@@ -13,22 +13,14 @@ You should have received a copy of the GNU General Public License along
 with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA. */
 
-// [Cecil] Include the core library and patches
-#include <CoreLib/Core.h>
-#include <EnginePatches/Patches.h>
+#include "StdH.h"
 
-#include <Engine/Graphics/Shader.h>
+// Library entry point
+BOOL APIENTRY DllMain(HANDLE hModule, DWORD ulReason, LPVOID lpReserved) {
+  // Apply patches upon loading the library
+  if (ulReason == DLL_PROCESS_ATTACH) {
+    _EnginePatches.ShadersPatches();
+  }
 
-// [Cecil] SKA models aren't usable prior to 1.07
-#if SE1_VER < SE1_107
-  #error Shaders cannot be built for Serious Engine versions before 1.07!
-#endif
-
-// [Cecil] Common includes
-#include "Common.h"
-
-// [Cecil] Replace engine methods with patches
-#include <EnginePatches/Patches/Ska.h>
-
-#define shaDoFogPass          P_shaDoFogPass
-#define shaSetTextureWrapping P_shaSetTextureWrapping
+  return TRUE;
+};
