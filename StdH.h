@@ -27,8 +27,12 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 // [Cecil] Common includes
 #include "Common.h"
 
+#if CLASSICSPATCH_ENGINEPATCHES && CLASSICSPATCH_FIX_SKA
+
 // [Cecil] Replace engine methods with patches
 #include <EnginePatches/Patches/Ska.h>
 
 #define shaDoFogPass          P_shaDoFogPass
 #define shaSetTextureWrapping P_shaSetTextureWrapping
+
+#endif // CLASSICSPATCH_ENGINEPATCHES
