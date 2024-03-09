@@ -21,7 +21,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ulReason, LPVOID lpReserved) {
 
   // Apply patches upon loading the library
   if (ulReason == DLL_PROCESS_ATTACH) {
-    _EnginePatches.ShadersPatches();
+    _EnginePatches.Ska(TRUE);
   }
 
 #endif // CLASSICSPATCH_ENGINEPATCHES
