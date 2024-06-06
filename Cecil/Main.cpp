@@ -17,14 +17,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 // Library entry point
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD ulReason, LPVOID lpReserved) {
-#if CLASSICSPATCH_ENGINEPATCHES
+#if _PATCHCONFIG_ENGINEPATCHES
 
   // Apply patches upon loading the library
   if (ulReason == DLL_PROCESS_ATTACH) {
     _EnginePatches.Ska(TRUE);
   }
 
-#endif // CLASSICSPATCH_ENGINEPATCHES
+#endif // _PATCHCONFIG_ENGINEPATCHES
 
   return TRUE;
 };
