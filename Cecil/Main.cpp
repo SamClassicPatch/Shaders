@@ -21,7 +21,10 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ulReason, LPVOID lpReserved) {
 
   // Apply patches upon loading the library
   if (ulReason == DLL_PROCESS_ATTACH) {
+  // [Cecil] TODO: Make SKA patches work in Debug
+  #ifdef NDEBUG
     _EnginePatches.Ska(TRUE);
+  #endif
   }
 
 #endif // _PATCHCONFIG_ENGINEPATCHES

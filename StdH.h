@@ -32,7 +32,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 // [Cecil] Replace engine methods with patches
 #include <EnginePatches/Patches/Ska.h>
 
+// [Cecil] TODO: Make SKA patches work in Debug
+#ifdef NDEBUG
 #define shaDoFogPass          P_shaDoFogPass
 #define shaSetTextureWrapping P_shaSetTextureWrapping
+#endif
 
 #endif // _PATCHCONFIG_ENGINEPATCHES
