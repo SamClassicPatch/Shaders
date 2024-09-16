@@ -23,7 +23,7 @@ BOOL APIENTRY DllMain(HANDLE hModule, DWORD ulReason, LPVOID lpReserved) {
   if (ulReason == DLL_PROCESS_ATTACH) {
   // [Cecil] TODO: Make SKA patches work in Debug
   #ifdef NDEBUG
-    _EnginePatches.Ska(TRUE);
+    _EnginePatches.Ska();
   #endif
   }
 
